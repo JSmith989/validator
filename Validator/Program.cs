@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Validator
 {
-    class Program
+   public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //phone
             Console.WriteLine("Enter a valid phone number");
             var phoneNumber = Console.ReadLine();
-           
+            Console.WriteLine("{0}correctly entered", IsValidPhoneNumber(phoneNumber) ? "" : "in");
+
+
 
 
 
@@ -18,16 +21,17 @@ namespace Validator
             var pin = Console.ReadLine();
             if (!int.TryParse(pin, out _))
             {
-                Console.WriteLine("Only Numbers");
+                Console.WriteLine("Only Numbers Please");
 
             }
             else if (pin.Length >= 4 && pin.Length <= 8)
             {
                 Console.WriteLine("Pin Valid");
             };
-
-            
-
+        }
+        public static bool IsValidPhoneNumber(string number)
+        {
+            return Regex.Match(number, @"^[0-9]{10}$|^[1-9]\d{2}-\d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^[1-9]\d{2}\s\d{3}\s\d{4}").Success;
         }
     }
 }
