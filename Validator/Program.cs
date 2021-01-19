@@ -10,10 +10,12 @@ namespace Validator
             //phone
             Console.WriteLine("Enter a valid phone number");
             var phoneNumber = Console.ReadLine();
-            Console.WriteLine("{0}correctly entered", IsValidPhoneNumber(phoneNumber) ? "" : "in");
+            Console.WriteLine("{0}valid phone number", IsValidPhoneNumber(phoneNumber) ? "" : "in");
 
-
-
+            //email
+            Console.WriteLine("Enter a valid email");
+            var emailInput = Console.ReadLine();
+            Console.WriteLine("{0}valid email", IsValidEmail(emailInput) ? "" : "in");
 
 
             //pin
@@ -26,12 +28,30 @@ namespace Validator
             }
             else if (pin.Length >= 4 && pin.Length <= 8)
             {
-                Console.WriteLine("Pin Valid");
+                Console.WriteLine("Valid Pin");
+            }
+            else if (pin.Length < 4 || pin.Length > 8)
+            {
+                Console.WriteLine("Invalid Pin");
             };
         }
         public static bool IsValidPhoneNumber(string number)
         {
             return Regex.Match(number, @"^[0-9]{10}$|^[1-9]\d{2}-\d{3}-\d{4}|^\(\d{3}\)\d{3}-\d{4}|^[1-9]\d{2}\s\d{3}\s\d{4}").Success;
+        }
+
+        
+        public static bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
